@@ -1,6 +1,6 @@
-# # Install Dependencies and Setup
-# !pip install tensorflow opencv-python matplotlib
-# !pip list
+# # # Install Dependencies and Setup
+# # !pip install tensorflow opencv-python matplotlib
+# # !pip list
 
 import tensorflow as tf
 import os
@@ -121,31 +121,31 @@ for batch in test.as_numpy_iterator():
 print(f'Precision: {pre.result().numpy()}, Recall: {re.result().numpy()}, Accuracy: {acc.result().numpy()}')
 
 # Save Model
-#model.save(os.path.join('models', 'dyslexia_scanner.h5'))
+model.save(os.path.join('models', 'dyslexia_scanner.keras'))
 
-# # Test Model
-# from tensorflow.keras.models import load_model
-# import tensorflow as tf
-# import os
-# import cv2
-# import numpy as np
-# from matplotlib import pyplot as plt
+# Test Model
+from tensorflow.keras.models import load_model
+import tensorflow as tf
+import os
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
 
-# new_model = load_model(os.path.join('models', 'dyslexia_scanner.h5'))
+new_model = load_model(os.path.join('models', 'dyslexia_scanner.keras'))
 
-# img = cv2.imread('test_dyslexia.jpeg')
-# plt.imshow(img)
-# plt.show()
+img = cv2.imread('Dataset_DS/Test/test_dyslexia_normal.jpg')
+plt.imshow(img)
+plt.show()
 
-# resize = tf.image.resize(img, (256,256))
-# plt.imshow(resize.numpy().astype(int))
-# plt.show()
+resize = tf.image.resize(img, (256,256))
+plt.imshow(resize.numpy().astype(int))
+plt.show()
 
-# yhat = new_model.predict(np.expand_dims(resize/255, 0))
+yhat = new_model.predict(np.expand_dims(resize/255, 0))
 
-# print(yhat)
+print(yhat)
 
-# if yhat > 0.5:
-#     print(f'unfortunately you have >50% chance of suffering from dyslexia.')
-# else:
-#     print(f'congratulations, you are normal')
+if yhat > 0.5:
+    print(f'unfortunately you have >50% chance of suffering from dyslexia.')
+else:
+    print(f'congratulations, you are normal')
